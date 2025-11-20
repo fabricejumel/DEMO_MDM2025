@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Affichage et impression images A6 portrait</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    background-color: #f5f5f5;
+  }
+
+  h2 {
+    color: #333;
+    text-align: center;
+    margin-bottom: 30px;
+  }
+
+  #imageContainer {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  .image-item {
+    background: white;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    text-align: center;
+    transition: transform 0.2s;
+  }
+
+  .image-item:hover {
+    transform: scale(1.05);
+  }
+
+  .image-item p {
+    font-size: 24px;
+    font-weight: bold;
+    color: #007bff;
+    margin: 0 0 10px 0;
+  }
+
+  .image-item img {
+    max-width: 100%;
+    height: auto;
+    max-height: 300px;
+    object-fit: contain;
+    border: 2px solid #ddd;
+    border-radius: 4px;
+  }
+
+  #statusMessage {
+    text-align: center;
+    margin-top: 30px;
+    padding: 15px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    min-height: 20px;
+    transition: opacity 0.3s;
+  }
+
+  #statusMessage.success {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+  }
+
+  #statusMessage.error {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+  }
+
+  #statusMessage.hidden {
+    opacity: 0;
+  }
+
+  @media print {
+    @page {
+      size: A6 portrait;
+      margin: 5mm;
+    }
+    
+    body {
+      margin: 0;
+      text-align: center;
+    }
+    
+    img {
+      max-width: 100%;
+      height: auto;
+      page-break-inside: avoid;
+    }
+  }
+</style>
+</head>
+<body>
+
+<h2>Appuyez sur les touches 1 à 5 pour imprimer l'image correspondante</h2>
+
+<div id="imageContainer">
+  <p>Chargement des images...</p>
+</div>
+
+<div id="statusMessage" class="hidden"></div>
+
+<script>
+  let images = [];
+  let statusTimeout = null;
+
+  console.log('Démarrage du chargement des images...');
+
+  // Charger la liste des images depuis le serveur
+  fetch('/api/images')
+    .then(response => {
+      console.log('Réponse reçue:', response);
+      if (!response.ok) {
+        throw new Error('Erreur HTTP: ' + response.status);
+      }
+      return response.json();
+    })
+    .then(files => {
+      console.log('Fichiers reçus:', files);
+      images = files.map(file => '/images/' + file);
+      console.log('URLs des images:', images);
+      displayImages();
+    })
+    .catch(err => {
+      console.error('Erreur chargement images:', err);
+      document.getElementById('imageContainer').innerHTML = 
+        '<p style="color: red;">Erreur lors du chargement des images: ' + err.message + '</p>';
+    });
+
+  // Afficher toutes les images
+  function displayImages() {
+    console.log('Affichage de', images.length, 'images');
+    
+    const container = document.getElementById('imageContainer');
+    container.innerHTML = '';
+    
+    if (images.length === 0) {
+      container.innerHTML = '<p>Aucune image trouvée dans le dossier</p>';
+      return;
+    }
+
+    images.forEach((src, i) => {
+      console.log('Création de l\'élément pour l\'image', i + 1, ':', src);
+      
+      const itemDiv = document.createElement('div');
+      itemDiv.className = 'image-item';
+      
+      const label = document.createElement('p');
+      label.textContent = i + 1;
+      
+      const img = document.createElement('img');
+      img.src = src;
+      img.alt = 'Image ' + (i + 1);
+      img.onload = function() {
+        console.log('Image chargée:', src);
+      };
+      img.onerror = function() {
+        console.error('Erreur chargement image:', src);
+      };
+      
+      itemDiv.appendChild(label);
+      itemDiv.appendChild(img);
+      container.appendChild(itemDiv);
+    });
+    
+    console.log('Affichage terminé');
+  }
+
+  // Fonction pour afficher un message de statut
+  function showStatus(message, type) {
+    const statusDiv = document.getElementById('statusMessage');
+    statusDiv.textContent = message;
+    statusDiv.className = type;
+    
+    // Annuler le timeout précédent si existant
+    if (statusTimeout) {
+      clearTimeout(statusTimeout);
+    }
+    
+    // Masquer le message après 3 secondes
+    statusTimeout = setTimeout(() => {
+      statusDiv.className = type + ' hidden';
+    }, 3000);
+  }
+
+  // Fonction d'impression via Flask (appel API)
+  function printImage(index) {
+    if (index >= images.length) {
+      console.log('Aucune image à l\'index', index);
+      return;
+    }
+    
+    console.log('Envoi de la demande d\'impression pour l\'image', index + 1);
+    
+    // Appel à l'API Flask pour imprimer via la commande lp
+    fetch('/api/print/' + index, {
+      method: 'POST'
+    })
+    .then(response => response.json())
+    .then(data => {
+      if (data.success) {
+        console.log('✓ Impression lancée:', data.message, '-', data.filename);
+        showStatus('✓ Impression lancée pour l\'image ' + (index + 1) + ' : ' + data.filename, 'success');
+      } else {
+        console.error('✗ Erreur d\'impression:', data.error);
+        showStatus('✗ Erreur d\'impression : ' + data.error, 'error');
+      }
+    })
+    .catch(err => {
+      console.error('✗ Erreur lors de l\'appel API:', err);
+      showStatus('✗ Erreur de communication avec le serveur', 'error');
+    });
+  }
+
+  // Gestion des touches 1 à 5 pour lancer l'impression
+  document.addEventListener('keydown', function(e) {
+    if (e.key >= '1' && e.key <= '5') {
+      const index = parseInt(e.key) - 1;
+      console.log('Touche pressée:', e.key, '-> impression image', index + 1);
+      printImage(index);
+    }
+  });
+</script>
+
+</body>
+</html>
+
