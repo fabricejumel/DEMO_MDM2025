@@ -141,9 +141,15 @@ cython_debug/
 .DS_Store
 
 # Project specific (ajoutez vos dossiers/fichiers)
-img/
-images/
+img/*
+images/*
 *.png
 *.jpg
 *.jpeg
 *.gif
+# Mais autoriser les 5 images de départ
+!html/img/pepper_iron_cpe_1.png
+!html/img/pepper_iron_cpe_2.png
+!html/img/pepper_iron_cpe_3.png
+!html/img/pepper_iron_cpe_4.png
+!html/img/pepper_iron_cpe_5.png
