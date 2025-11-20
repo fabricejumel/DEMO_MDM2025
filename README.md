@@ -5,10 +5,10 @@ python3 -m venv venv_html
 source venv_html/bin/activate 
 pip install -r requirements_html.txt
 
-#Lancemenet terminal 
+#Lancement terminal 
 cd html
 ./app.py
 
-#Lancement naviguateur 
+#Lancement navigateur 
 http://localhost:8000/
 
