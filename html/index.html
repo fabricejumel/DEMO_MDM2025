@@ -111,12 +111,12 @@
 <div id="statusMessage" class="hidden"></div>
 
 <script>
-  let images = [];
-  let statusTimeout = null;
+ let images = []; 
+let statusTimeout = null;
 
-  console.log('Démarrage du chargement des images...');
+console.log('Démarrage du chargement des images...');
 
-  // Charger la liste des images depuis le serveur
+function loadImages() {
   fetch('/api/images')
     .then(response => {
       console.log('Réponse reçue:', response);
@@ -127,17 +127,28 @@
     })
     .then(files => {
       console.log('Fichiers reçus:', files);
-      images = files.map(file => '/images/' + file);
-      console.log('URLs des images:', images);
-      displayImages();
+      const newImages = files.map(file => '/images/' + file);
+      if (JSON.stringify(newImages) !== JSON.stringify(images)) {
+        console.log('Mise à jour de la liste des images');
+        images = newImages;
+        displayImages();
+      }
     })
     .catch(err => {
       console.error('Erreur chargement images:', err);
       document.getElementById('imageContainer').innerHTML = 
         '<p style="color: red;">Erreur lors du chargement des images: ' + err.message + '</p>';
     });
+}
 
-  // Afficher toutes les images
+// Chargement initial
+loadImages();
+
+// Mise à jour toutes les 5 secondes
+setInterval(loadImages, 5000);
+
+// La fonction displayImages() est appelée automatiquement si les images changent
+
 
 function displayImages() {
   console.log('Affichage de', images.length, 'images');

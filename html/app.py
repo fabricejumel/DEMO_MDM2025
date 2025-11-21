@@ -25,20 +25,14 @@ def index():
 
 @app.route('/api/images')
 def list_images():
-    print(f"Recherche d'images dans: {IMAGES_FOLDER}")
-    
-    if not os.path.exists(IMAGES_FOLDER):
-        print("Le dossier img n'existe pas!")
-        os.makedirs(IMAGES_FOLDER)
-        return jsonify([])
-    
     files = os.listdir(IMAGES_FOLDER)
-    print(f"Fichiers trouvés: {files}")
-    
-    image_files = sorted([f for f in files if f.lower().endswith(('.jpg', '.jpeg', '.png', '.gif', '.bmp', '.webp'))])
-    print(f"Images filtrées: {image_files}")
-    
-    return jsonify(image_files)
+    # Filtrer seulement les fichiers images
+    files = [f for f in files if f.lower().endswith(('.png', '.jpg', '.jpeg', '.gif'))]
+
+    # Trier par date modif décroissante
+    files.sort(key=lambda f: os.path.getmtime(os.path.join(IMAGES_FOLDER, f)), reverse=True)
+
+    return jsonify(files)
 
 @app.route('/images/<path:filename>')
 def serve_image(filename):
