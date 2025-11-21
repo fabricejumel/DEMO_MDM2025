@@ -1,6 +1,6 @@
 # DEMO_MDM2025
 
-## INSTALLATION HTML
+## Installation partie html/impression
 
 ```
 python3 -m venv venv_html
