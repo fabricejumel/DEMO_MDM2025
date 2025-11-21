@@ -1,4 +1,4 @@
-# DEMO_MDM2025
+# DEMO Mondiales des metiers 2025 
 
 ## Installation partie html/impression
 
