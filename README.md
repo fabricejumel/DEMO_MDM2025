@@ -1,6 +1,6 @@
-i# DEMO_MDM2025
+# DEMO_MDM2025
 
-# INSTALLATION HTML
+## INSTALLATION HTML
 
 ```
 python3 -m venv venv_html
@@ -8,28 +8,28 @@ source venv_html/bin/activate
 pip install -r requirements_html.txt
 ```
 
-# Lancement terminal 
+## Lancement terminal 
 
 ```
 cd html
 ./app.py
 ```
-# Lancement navigateur  en mode kiosk
+## Lancement navigateur  en mode kiosk
 ```
 firefox --kiosk http://localhost:8000/
 ```
-# Quitter  navigateur en mode kiosk
+## Quitter  navigateur en mode kiosk
 Alt+F4
 (Echap ou F11 ne marche pas)
 
 ## divers si besoin 
 
-# Niveau encre
+## Niveau encre
 ```
 hp-levels -i 
 ```
 
-# Impressions réalisées
+## Impressions réalisées
 
 ```
 lpstat -W completed 
