@@ -25,7 +25,7 @@ Alt+F4
 hp-levels -i 
 ```
 
-# Impressions faites
+# Impressions réalisées
 
 ```
 lpstat -W completed 
