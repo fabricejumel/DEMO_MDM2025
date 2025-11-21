@@ -23,17 +23,17 @@ Alt+F4
 (Echap ou F11 ne marche pas)
 
 > [!TIP]
-> Divers si besoin 
+> # Divers si besoin 
 >
 > ## Niveau encre
 > ```
 > hp-levels -i 
 > ```
-
-## Impressions réalisées
-
-```
-lpstat -W completed 
-lpstat -W completed | wc -l
-```
+>
+> ## Impressions réalisées
+>
+> ```
+> lpstat -W completed 
+> lpstat -W completed | wc -l
+> ```
 
