@@ -22,12 +22,13 @@ firefox --kiosk http://localhost:8000/
 Alt+F4
 (Echap ou F11 ne marche pas)
 
-## Divers si besoin 
-
-## Niveau encre
-```
-hp-levels -i 
-```
+> [!TIP]
+> Divers si besoin 
+>
+> ## Niveau encre
+> ```
+> hp-levels -i 
+> ```
 
 ## Impressions réalisées
 
