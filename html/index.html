@@ -138,43 +138,52 @@
     });
 
   // Afficher toutes les images
-  function displayImages() {
-    console.log('Affichage de', images.length, 'images');
-    
-    const container = document.getElementById('imageContainer');
-    container.innerHTML = '';
-    
-    if (images.length === 0) {
-      container.innerHTML = '<p>Aucune image trouvée dans le dossier</p>';
-      return;
-    }
 
-    images.forEach((src, i) => {
-      console.log('Création de l\'élément pour l\'image', i + 1, ':', src);
-      
-      const itemDiv = document.createElement('div');
-      itemDiv.className = 'image-item';
-      
-      const label = document.createElement('p');
-      label.textContent = i + 1;
-      
-      const img = document.createElement('img');
-      img.src = src;
-      img.alt = 'Image ' + (i + 1);
-      img.onload = function() {
-        console.log('Image chargée:', src);
-      };
-      img.onerror = function() {
-        console.error('Erreur chargement image:', src);
-      };
-      
-      itemDiv.appendChild(label);
-      itemDiv.appendChild(img);
-      container.appendChild(itemDiv);
+function displayImages() {
+  console.log('Affichage de', images.length, 'images');
+  
+  const container = document.getElementById('imageContainer');
+  container.innerHTML = '';
+  
+  if (images.length === 0) {
+    container.innerHTML = '<p>Aucune image trouvée dans le dossier</p>';
+    return;
+  }
+
+  images.forEach((src, i) => {
+    console.log('Création de l\'élément pour l\'image', i + 1, ':', src);
+    
+    const itemDiv = document.createElement('div');
+    itemDiv.className = 'image-item';
+    
+    const label = document.createElement('p');
+    label.textContent = i + 1;
+    
+    const img = document.createElement('img');
+    img.src = src;
+    img.alt = 'Image ' + (i + 1);
+    // Ajout pour rendre l'image cliquable
+    img.style.cursor = 'pointer';  // montre que c’est cliquable
+    img.addEventListener('click', () => {
+      console.log('Image cliquée:', i + 1);
+      printImage(i);   // lance l'impression sur le serveur
     });
     
-    console.log('Affichage terminé');
-  }
+    img.onload = function() {
+      console.log('Image chargée:', src);
+    };
+    img.onerror = function() {
+      console.error('Erreur chargement image:', src);
+    };
+    
+    itemDiv.appendChild(label);
+    itemDiv.appendChild(img);
+    container.appendChild(itemDiv);
+  });
+  
+  console.log('Affichage terminé');
+}
+
 
   // Fonction pour afficher un message de statut
   function showStatus(message, type) {

@@ -9,6 +9,8 @@ pip install -r requirements_html.txt
 cd html
 ./app.py
 
-#Lancement navigateur 
-http://localhost:8000/
-
+#Lancement navigateur  en mode kiosk
+firefox --kiosk http://localhost:8000/
+#quitter  navigateur 
+Alt+F4
+(Echap ou F11 ne marche pas)
