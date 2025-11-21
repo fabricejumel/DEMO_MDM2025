@@ -1,4 +1,4 @@
-# DEMO_MDM2025
+i# DEMO_MDM2025
 
 # INSTALLATION HTML
 
@@ -18,7 +18,7 @@ cd html
 ```
 firefox --kiosk http://localhost:8000/
 ```
-# Quitter  navigateur 
+# Quitter  navigateur en mode kiosk
 Alt+F4
 (Echap ou F11 ne marche pas)
 
