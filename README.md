@@ -14,3 +14,12 @@ firefox --kiosk http://localhost:8000/
 #quitter  navigateur 
 Alt+F4
 (Echap ou F11 ne marche pas)
+
+##divers si besoin 
+# Niveau encre
+hp-levels -i 
+# Impressions faites
+lpstat -W completed 
+lpstat -W completed | wc -l
+
+
