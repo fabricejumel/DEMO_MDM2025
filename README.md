@@ -6,9 +6,10 @@ source venv_html/bin/activate
 pip install -r requirements_html.txt
 
 #Lancement terminal 
+```
 cd html
 ./app.py
-
+```
 #Lancement navigateur  en mode kiosk
 firefox --kiosk http://localhost:8000/
 #quitter  navigateur 
