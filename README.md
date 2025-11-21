@@ -1,4 +1,4 @@
-# DEMO Mondiales des metiers 2025 
+# DEMO Mondiale des metiers 2025 
 
 ## Installation partie html/impression
 
