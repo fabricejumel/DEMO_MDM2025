@@ -22,7 +22,7 @@ firefox --kiosk http://localhost:8000/
 Alt+F4
 (Echap ou F11 ne marche pas)
 
-## divers si besoin 
+## Divers si besoin 
 
 ## Niveau encre
 ```
