@@ -1,6 +1,7 @@
 # DEMO_MDM2025
 
 #INSTALLATION HTML
+
 python3 -m venv venv_html
 source venv_html/bin/activate 
 pip install -r requirements_html.txt
@@ -18,10 +19,16 @@ Alt+F4
 (Echap ou F11 ne marche pas)
 
 ##divers si besoin 
+
 # Niveau encre
+```
 hp-levels -i 
+```
+
 # Impressions faites
+
+```
 lpstat -W completed 
 lpstat -W completed | wc -l
-
+```
 
