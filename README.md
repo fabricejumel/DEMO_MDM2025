@@ -1,5 +1,9 @@
 # DEMO Mondiale des metiers 2025 
 
+> [!WARNING]  
+> Verifier la commande d'impression finale  avec les noms datés 
+
+
 ## Installation partie html/impression
 
 ```
@@ -36,4 +40,6 @@ Alt+F4
 > lpstat -W completed 
 > lpstat -W completed | wc -l
 > ```
+
+
 
