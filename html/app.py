@@ -8,7 +8,7 @@ app = Flask(__name__)
 
 # Chemins absolus
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-IMAGES_FOLDER = os.path.join(BASE_DIR, 'img')  # Changé en 'img'
+IMAGES_FOLDER = os.path.join(BASE_DIR, '../img')  # Changé en 'img'
 
 # Configuration de l'imprimante (votre commande exacte)
 PRINTER_NAME = "HP-Color-LaserJet-5700"
