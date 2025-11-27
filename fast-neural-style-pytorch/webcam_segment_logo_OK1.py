@@ -97,7 +97,7 @@ PRINTER_OPTIONS = [
     "-o", "orientation-requested=4"
 ]
 
-PRINT_COOLDOWN = 10
+PRINT_COOLDOWN = 0
 last_print_time = 0
 global gesture_active, gesture_countdown, start_time_countdown, gesture_history
     
